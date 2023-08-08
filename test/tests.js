@@ -10,7 +10,6 @@ describe("post request", function (done) {
         console.log(api_url)
     
         const response = await axios.post(api_url, {
-          // Add the data you want to post here
           key1: "test",
           method: "POST",
         });
@@ -31,7 +30,6 @@ describe("GET Data request",function(done){
       console.log(api_url);
 
       const response = await axios.post(api_url, {
-        // Add the data you want to post here
         method: "GET",
       });
 
