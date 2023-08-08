@@ -1,0 +1,22 @@
+service: serverless-data-operation
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-west-2
+
+# functions:
+#   hello:
+#     handler: handler.dataoperations
+#     events:
+#       - http:
+#           path: /
+#           method: post
+
+# resources:
+#  Resources:
+#    ApiGateWay:
+#       Type: AWS::ApiGateway::RestApi
+#       Properties:
+#         Name: data-op
