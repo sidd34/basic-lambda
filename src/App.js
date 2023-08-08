@@ -54,8 +54,6 @@ const App = () => {
     fetchData();
   }, [update,url]);
 
-  //console.log("Messages-->",JSON.parse(messages));
-
   return (
     <>
       <div className="flex items-center justify-center h-[50vh]">
