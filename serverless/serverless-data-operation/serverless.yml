@@ -6,17 +6,26 @@ provider:
   runtime: nodejs18.x
   region: us-west-2
 
-# functions:
-#   hello:
-#     handler: handler.dataoperations
-#     events:
-#       - http:
-#           path: /
-#           method: post
+functions:
+  dataoperations:
+    handler: handler.dataoperations
+    events:
+      - http:
+          path: /
+          method: post
 
-# resources:
-#  Resources:
-#    ApiGateWay:
-#       Type: AWS::ApiGateway::RestApi
-#       Properties:
-#         Name: data-op
+resources:
+  Resources:
+    Dataformtable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: data-form
+        AttributeDefinitions:
+          - AttributeName: date
+            AttributeType: N
+        KeySchema:
+          - AttributeName: date
+            KeyType: HASH
+        ProvisionedThroughput:
+            ReadCapacityUnits: 3
+            WriteCapacityUnits: 3

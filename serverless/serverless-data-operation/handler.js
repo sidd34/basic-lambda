@@ -1,18 +1,18 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import {
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const {
   DynamoDBDocumentClient,
   ScanCommand,
   PutCommand,
-} from "@aws-sdk/lib-dynamodb";
+} = require("@aws-sdk/lib-dynamodb");
 
-const docClient = new DynamoDBClient({ region: "eu-north-1" });
+const docClient = new DynamoDBClient({ region: "us-west-2" });
 
 const dynamo = DynamoDBDocumentClient.from(docClient);
 
 const tableName = "form-data";
 
-module.exports.dataoperations = async (event,context) => {
- try {
+module.exports.dataoperations = async (event, context) => {
+  try {
     console.log("event.method ", context);
     console.log(event);
     switch (event.method) {
