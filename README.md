@@ -3,7 +3,7 @@
 * This is an React app
 * This posts data directly to dynamodb using api gateway & aws lambda function via a post request
 
-# How to run
+## How to run
 
 ```bash
 npm i
@@ -11,6 +11,6 @@ npm i
 npm start run
 ```
 
-# Preview
+## Preview
 
 ![1691479628496](image/README/1691479628496.png)
