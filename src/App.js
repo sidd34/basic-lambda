@@ -37,8 +37,7 @@ const App = () => {
         const res = axios
           .post(url, data)
           .then((response) => {
-            //console.log("Response:", response.data.body);
-            setMessages(JSON.parse(response.data.body));
+            setMessages(response.data);
             setUpdate(false)
           })
           .catch((error) => {
