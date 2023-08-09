@@ -5,6 +5,17 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:BatchGetItem
+        - dynamodb:BatchWriteItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:*:*:table/data-form"
 
 functions:
   dataoperations:
@@ -13,6 +24,7 @@ functions:
       - http:
           path: /
           method: post
+          cors: true
 
 resources:
   Resources:

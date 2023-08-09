@@ -14,7 +14,7 @@ describe("post request", function (done) {
           method: "POST",
         });
     
-        expect(response.status).to.equal(200)
+        expect(response.status).to.equal(200);
     }
     catch(error){
         throw error
