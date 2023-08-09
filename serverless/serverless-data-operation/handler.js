@@ -9,19 +9,30 @@ const docClient = new DynamoDBClient({ region: "us-west-2" });
 
 const dynamo = DynamoDBDocumentClient.from(docClient);
 
-const tableName = "form-data";
+const tableName = "data-form";
 
 module.exports.dataoperations = async (event, context) => {
   try {
     console.log("event.method ", context);
-    console.log(event);
-    switch (event.method) {
+    console.log(event.body);
+
+    let m = "";
+    let key = "";
+    if (event.method === undefined) {
+      const req = JSON.parse(event.body);
+      m = req.method;
+      key = req.key1;
+    } else {
+      m = event.method;
+    }
+
+    switch (m) {
       case "POST":
         const postParams = {
           TableName: tableName,
           Item: {
             date: Date.now(),
-            message: event.key1,
+            message: event.key1 === undefined ? key : event.key1,
           },
         };
 
@@ -59,7 +70,7 @@ module.exports.dataoperations = async (event, context) => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
           },
-          body: JSON.stringify("Some error"),
+          body: JSON.stringify(`Some error ${event.body}`),
         };
     }
   } catch (error) {
