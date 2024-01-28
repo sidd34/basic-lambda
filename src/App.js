@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const App = () => {
+  const [userName, setUserName] = useState("");
+  const [feel, setFeel] = useState("");
   const [message, setMessage] = useState("");
   const [update, setUpdate] = useState(false)
   const [messages, setMessages] = useState([]);
@@ -12,7 +14,9 @@ const App = () => {
     e.preventDefault();
 
     const data = {
-      key1: message,
+      key1: userName,
+      key2: message,
+      key3: feel,
       method: "POST",
     };
 
@@ -54,50 +58,79 @@ const App = () => {
   }, [update,url]);
 
   return (
-    <>
-      <div className="flex items-center justify-center h-[50vh]">
-        <div className="w-full max-w-xs">
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                for="username"
-              >
-                Message
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </div>
-            <div className="mb-6"></div>
-            <div className="flex items-center justify-between">
-              <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-                onClick={handleSubmit}
-              >
-                Add to DB
-              </button>
-            </div>
-          </div>
-          <p className="text-center text-gray-500 text-xs">
-            &copy;2020 PO. All rights reserved.
-          </p>
-        </div>
-      </div>
+		<>
+			<div className="flex items-center justify-center h-[50vh]">
+				<div className="w-full max-w-xs">
+					<h2 className="text-2xl font-bold text-center m-4 p-2">
+						User Record on Dynamodb
+					</h2>{" "}
+					<div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+						<div className="mb-4">
+							<label
+								className="block text-gray-700 text-sm font-bold mb-2"
+								for="username"
+							>
+								User Entry
+							</label>
 
-      <ul className="list-disc flex items-center justify-center h-[50vh] flex-col">
-        {messages?.map((item) => (
-          <li key={item.date}>{item.message}</li>
-        ))}
-      </ul>
-    </>
-  );
+							<input
+								className="shadow appearance-none border rounded w-full py-2 px-3 my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="username"
+								type="text"
+								placeholder="User Name"
+								value={userName}
+								onChange={(e) => setUserName(e.target.value)}
+							/>
+
+							<input
+								className="shadow appearance-none border rounded w-full py-2 px-3 my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="Message"
+								type="text"
+								placeholder="Message"
+								value={message}
+								onChange={(e) => setMessage(e.target.value)}
+							/>
+
+							<input
+								className="shadow appearance-none border rounded w-full py-2 px-3 my-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="Feel"
+								type="text"
+								placeholder="Feel?"
+								value={feel}
+								onChange={(e) => setFeel(e.target.value)}
+							/>
+						</div>
+						<div className="mb-6"></div>
+						<div className="flex items-center justify-between">
+							<button
+								class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+								type="button"
+								onClick={handleSubmit}
+							>
+								Add to DB
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<table className="table-auto flex items-center justify-center h-[50vh]">
+				<thead>
+					<tr>
+						<th className="px-4 py-2">Date</th>
+						<th className="px-4 py-2">Message</th>
+					</tr>
+				</thead>
+				<tbody>
+					{messages?.map((item) => (
+						<tr key={item.date}>
+							<td className="border px-4 py-2">{item.date}</td>
+							<td className="border px-4 py-2">{item.message}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</>
+	);
 };
 
 export default App;

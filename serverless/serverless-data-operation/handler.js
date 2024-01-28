@@ -18,10 +18,14 @@ module.exports.dataoperations = async (event, context) => {
 
     let m = "";
     let key = "";
+    let usernameKey = "";
+    let feelKey = "";
     if (event.method === undefined) {
       const req = JSON.parse(event.body);
       m = req.method;
-      key = req.key1;
+      key = req.key2;
+      usernameKey = req.key1;
+      feelKey = req.key3;
     } else {
       m = event.method;
     }
@@ -29,12 +33,14 @@ module.exports.dataoperations = async (event, context) => {
     switch (m) {
       case "POST":
         const postParams = {
-          TableName: tableName,
-          Item: {
-            date: Date.now(),
-            message: event.key1 === undefined ? key : event.key1,
+					TableName: tableName,
+					Item: {
+						date: Date.now(),
+						message: event.key2 === undefined ? key : event.key2,
+						userName: event.key1 === undefined ? usernameKey : event.key1,
+            feel: event.key3 === undefined ? feelKey : event.key3,
           },
-        };
+				};
 
         await dynamo.send(new PutCommand(postParams));
 
